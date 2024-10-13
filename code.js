@@ -4,8 +4,8 @@ function mergesort(array) {
 
     for (let subarraySize = 1; subarraySize < arrayLength; subarraySize *= 2) {
       for (let leftStart = 0; leftStart < arrayLength - 1; leftStart += subarraySize * 2) {
-        const leftEnd = leftStart + subarraySize - 1;
-        const rightEnd = leftStart + (2 * subarraySize);
+        const leftEnd = Math.min(leftStart + subarraySize - 1, arrayLength - 1);
+        const rightEnd = Math.min(leftStart + (2 * subarraySize) - 1, arrayLength - 1);
         
         mergeSubarrays(array, leftStart, leftEnd, rightEnd);
       }

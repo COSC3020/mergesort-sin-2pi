@@ -1,13 +1,38 @@
-function mergesort(arr) {
-  const n = arr.length;
+function mergesort(array) {
+    const arrayLength = array.length;
+    
 
-  for (let size = 1; size < n; size *= 2) {
-    for (let start = 0; start < n - 1; start += 2 * size) {
-      const mid = Math.min(start + size - 1, n - 1);
-      const end = Math.min(start + 2 * size - 1, n - 1);
-      merge(arr, start, mid, end);
+    for (let subarraySize = 1; subarraySize < arrayLength; subarraySize *= 2) {
+      for (let leftStart = 0; leftStart < arrayLength - 1; leftStart += subarraySize * 2) {
+        const leftEnd = leftStart + subarraySize - 1;
+        const rightEnd = leftStart + (2 * subarraySize);
+        
+        mergeSubarrays(array, leftStart, leftEnd, rightEnd);
+      }
     }
+    
+    return array;
   }
+  
+  function mergeSubarrays(array, leftStart, leftEnd, rightEnd) {
+    let leftIndex = leftStart;
+    let rightIndex = leftEnd + 1;
 
-  return arr;
+    while (leftIndex < rightIndex && rightIndex <= rightEnd) {
+        if (array[leftIndex] <= array[rightIndex]) {
+            leftIndex++;
+        } else {
+            value = array[rightIndex];
+            let index = rightIndex;
+
+            while (index > leftIndex) {
+                array[index] = array[index - 1];
+                index--;
+            }
+            array[leftIndex] = value;
+
+            leftIndex++;
+            rightIndex++;
+        }
+    }
 }

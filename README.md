@@ -17,14 +17,45 @@ markdown file.
 
 ## Answer
 
-Our outer loop in mergesort() runs log(n) times. This is because we are analyzing the input starting in pairs of two (our subarrays), and doubling each time. $2^0, 2^1, 2^2, ..., 2^k$, we stop when the subarrays are greater than the array length. $2^k >= n$ which equals $\Theta(logn)$.
+## Recurrence Relation and Summation Analysis
 
-The inner loop has to run through the entire input each time it is called, this is taking $n$ time.
+Let T(n) be the time complexity of the algorithm for an input of size n.
 
-I can now say that our mergesort() function has a time complexity of $\Theta(nlogn)$.
+The algorithm divides the problem into subproblems of size $n/2^i$, where $i$ goes from $1$ to $log_2(n)$. At each level, we perform $n * 2^i$ comparisons.
 
-mergeSubarrays() takes $\Theta(n^2)$ time to run, as it involves shifting elements inside the input, and there are two loops that go over $n$ elements in the worst case. 
+We can express this as a recurrence relation:
 
-With this, I say that this program has a time complexity of $\Theta(n^3logn$).
+$$ T(n) = \sum_{i=1}^{\log_2(n)} (n * 2^i) $$
+
+$$ T(n) = n * \sum_{i=1}^{\log_2(n)} (2^i) $$
+
+This looks like we can use the geometric series here.
+
+$$
+\begin{aligned}
+\sum_{i=1}^{\log_2(n)} [2^i] &= 2 * \frac{2^{\log_2(n)} - 1}{2 - 1} \\
+&= 2 * (n - 1) \\
+&= 2n - 2
+\end{aligned}
+$$
+
+Now I can substitute back in the original equation.
+
+
+
+$T(n) = n * (2n - 2)$
+
+$= 2n^2 - 2n$
+
+
+
+This simplifies down to $T(n) = \Theta(n^2)$
+
+The entire process is repeated `log<sub>2</sub>(n) times due to the outer loop that doubles the subarray size in each iteration.
+
+Therefore, the final time complexity is:
+
+$$ T(n) = \Theta(n^2 * \log_2(n)) $$
+
 
 I certify that I have listed all sources used to complete this exercise, including the use of any Large Language Models. All of the work is my own, except where stated otherwise. I am aware that plagiarism carries severe penalties and that if plagiarism is suspected, charges may be filed against me without prior notice.
